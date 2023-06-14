@@ -14,7 +14,8 @@
 #define PI 3.14
 // This is where I should put my function prototypes
 float area_of_circles(float r); 
-
+float area_of_rings(float outer,float inner);
+float area_of_rec(float len, float width);
 // Now I start my code with main()
 int main() {
 
@@ -23,20 +24,30 @@ int main() {
     int i=0;
     int num_circles=0;
     float total_area=0;
-    float loss_in_kg;
+
     // Next I need to get input from the user.
-    // I'll do this by using a printf() to ask the user to input the radii.
-    printf("Enter the number of circles: \n");
-    scanf("%d",&num_circles);
+
+    // get data from external txt file and open it
+    FILE *fp;
+    char filename[200],mode[4];
+    printf("enter filename:\n");
+    gets(filename);
+    printf("enter mode:\n");
+    gets(mode);
+    // test if it can be opened successfully
+    if(fp=fopen(filename,mode)!=NULL){
+        printf("\n opened %s in the mode %s", filename,mode);
+    }else{printf("\n Error: File cannot be recognised\n");}
+ 
     radius=(float*)malloc(num_circles*sizeof(float));
-    printf("Enter radii: \n");
+    // printf("Enter radii: \n");
     for(int i=0; i<num_circles; i++){
-         scanf("%f",&radius[i]);}
+        //  scanf("%f",&radius[i]);}
     i=0;
     // Now I need to loop through the radii caluclating the area for each
     for(i = 0;i <num_circles; i++){
     // Next I'll sum up all of the individual areas
-        total_area = total_area + area_of_circles(radius[i]);}
+        total_area += area_of_circles(radius[i]);}
     free(radius);
     /******************************************************************
      *                                                                *
@@ -49,16 +60,28 @@ int main() {
      ******************************************************************/
 
     // Using the above I'll work out how much barley has been lost.
-    loss_in_kg = total_area*0.135;
-
-    // Finally I'll use a printf() to print this to the screen.
+    float loss_in_kg = total_area*0.135;
+    float loss_in_pence = loss_in_kg*10;
+    // Finally I'll use a printf() to print all values I need to the screen.
     printf("\nTotal area lossed in m^2 is:\t%f\n", total_area);
     printf("Total loss in kg is:\t\t%f\n", loss_in_kg);
+    printf("Percentage of the barley loss is:\t\t%f\n", );
+    printf("Monetary loss is:\t\t%f\n",loss_in_pence);
 
     return(0);
 }
 
 // I'll put my functions here:
+
+//calculating circle areas
 float area_of_circles(float r){
     float area = PI*r*r;
     return area; }
+//calculating ring areas
+float area_of_rings(float outer, float inner){
+    float area = area_of_circles(outer) - area_of_circles(inner);
+    return area;}
+//calculating rectangular areas
+float area_of_rec(float len, float width){
+    float area = len*width;
+    return area;}
