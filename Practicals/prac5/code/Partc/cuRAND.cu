@@ -4,7 +4,7 @@
 #include <stdio.h>
 
 //define variables
-#define NUM_ELS 50;
+#define NUM_ELS 50
 
 //local functions
 float mean(float *array, int n);
@@ -23,7 +23,7 @@ int main(void){
 
     //allocate memory in GPU
     size_t array_size = NUM_ELS * sizeof(float);
-    float *d_input = (float*)malloc(array_size);
+    float *d_input;
     cudaMalloc((void**)&d_input,array_size);
 
     //generate the randoms
