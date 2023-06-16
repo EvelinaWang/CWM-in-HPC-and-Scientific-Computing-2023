@@ -4,7 +4,7 @@
 #include <stdio.h>
 
 //define variables
-#define NUM_ELS=50;
+#define NUM_ELS 50;
 
 //local functions
 float mean(float *array, int n);
@@ -22,16 +22,16 @@ int main(void){
     curandSetPseudoRandomGeneratorSeed(gen,1234ULL);
 
     //allocate memory in GPU
-    float *d_input;
-    array_size = (float*) malloc(NUM_ELS*sizeof(float));
+    size_t array_size = NUM_ELS * sizeof(float);
+    float *d_input = (float*)malloc(array_size);
     cudaMalloc((void**)&d_input,array_size);
 
     //generate the randoms
     curandGenerateNormal(gen, d_input, NUM_ELS, 0.0f,1.0f);
 
     //transfer data to CPU
-    float *h_input;
-    cudaMemcpy(h_input, d_input, array_size,cudaDeviceToHost);
+    float *h_input = (float*)malloc(array_size);
+    cudaMemcpy(h_input, d_input, array_size,cudaMemcpyDeviceToHost);
 
     //free GPU memory
     cudaFree(d_input);
@@ -43,9 +43,9 @@ int main(void){
     //use local functions to get values
     float mean_value=mean(h_input,NUM_ELS);
     float standard_deviation=std_dev(h_input,NUM_ELS,mean_value);
-    printf("mean is %f and standard deviation is %f\n", mean_value, standard_deviaiton);
-    print_Histogram(h_input, NUM_ELS);
-
+    printf("mean is %f and standard deviation is %f\n", mean_value, standard_deviation);
+    //print_Histogram(h_input, NUM_ELS);
+    free(h_input);
     return 0;
 }
 
@@ -64,7 +64,7 @@ float std_dev(float *array, int n, float mean){
     for(int i=0;i<n;i++){
         sum_2+=array[i]*array[i];
     }
-    std=(sum_2/n)-(mean*mean);
+    float std=(sum_2/n)-(mean*mean);
     return std;
 }
 
