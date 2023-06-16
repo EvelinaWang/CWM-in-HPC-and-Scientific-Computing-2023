@@ -38,7 +38,9 @@
 // write your kernel here
 
 //----------------------------------------------------------------------
-
+__global__ void helloworld_blocks(void){
+    printf("hello world from block%d\n", blockIdx.x);
+}
 
 //----------------------------------------------------------------------
 // TASK 2.0: Write a "Hello world" kernel which output "Hello world" but 
@@ -51,7 +53,9 @@
 // write your kernel here
 
 //----------------------------------------------------------------------
-
+__global__ void helloworld_GPU(void){
+    printf("hello world from block%d, thread%d\n", blockIdx.x, threadIdx.x);
+}
 
 //----------------------------------------------------------------------
 // TASK 3.0: Write a "Hello world" kernel where only first thread from each
@@ -70,7 +74,12 @@
 // from 32 threads.
 
 // write your kernel here
-
+__global__ void helloworld_1(void){
+    if(threadIdx.x%32==0){
+        int idex=threadIdx.x/32;
+        printf("hello world from block%d, warp%d\n",blockIdx.x,idex);
+    }
+}
 //----------------------------------------------------------------------
 
 
@@ -100,7 +109,7 @@ int main(void) {
   // put your code here
   
   //----------------------------------------------------------------------
-
+    helloworld_blocks<<<10,1>>>();
   //----------------------------------------------------------------------
   // TASK 2.1: execute your "Hello world" kernel from TASK 2.0 on about  
   // 5 blocks each containing about 10 threads. When you configured the kernel
@@ -115,7 +124,7 @@ int main(void) {
   // put your code here
   
   //----------------------------------------------------------------------
-  
+    helloworld_GPU<<<5,10>>>();
   
   //----------------------------------------------------------------------
   // TASK 3.1: execute your "Hello world" kernel from TASK 3.0 on about  
@@ -133,7 +142,8 @@ int main(void) {
   // put your code here
   
   //----------------------------------------------------------------------
-  
+    helloworld_1<<<5,320>>>();
+
   cudaDeviceReset();
   return (0);
 }

@@ -1,0 +1,110 @@
+hello world from block4
+hello world from block0
+hello world from block3
+hello world from block6
+hello world from block9
+hello world from block1
+hello world from block7
+hello world from block2
+hello world from block8
+hello world from block5
+hello world from block0, thread0
+hello world from block0, thread1
+hello world from block0, thread2
+hello world from block0, thread3
+hello world from block0, thread4
+hello world from block0, thread5
+hello world from block0, thread6
+hello world from block0, thread7
+hello world from block0, thread8
+hello world from block0, thread9
+hello world from block4, thread0
+hello world from block4, thread1
+hello world from block4, thread2
+hello world from block4, thread3
+hello world from block4, thread4
+hello world from block4, thread5
+hello world from block4, thread6
+hello world from block4, thread7
+hello world from block4, thread8
+hello world from block4, thread9
+hello world from block2, thread0
+hello world from block2, thread1
+hello world from block2, thread2
+hello world from block2, thread3
+hello world from block2, thread4
+hello world from block2, thread5
+hello world from block2, thread6
+hello world from block2, thread7
+hello world from block2, thread8
+hello world from block2, thread9
+hello world from block3, thread0
+hello world from block3, thread1
+hello world from block3, thread2
+hello world from block3, thread3
+hello world from block3, thread4
+hello world from block3, thread5
+hello world from block3, thread6
+hello world from block3, thread7
+hello world from block3, thread8
+hello world from block3, thread9
+hello world from block1, thread0
+hello world from block1, thread1
+hello world from block1, thread2
+hello world from block1, thread3
+hello world from block1, thread4
+hello world from block1, thread5
+hello world from block1, thread6
+hello world from block1, thread7
+hello world from block1, thread8
+hello world from block1, thread9
+hello world from block4, warp7
+hello world from block4, warp3
+hello world from block4, warp6
+hello world from block4, warp2
+hello world from block4, warp8
+hello world from block4, warp4
+hello world from block4, warp9
+hello world from block4, warp0
+hello world from block4, warp1
+hello world from block4, warp5
+hello world from block0, warp6
+hello world from block0, warp7
+hello world from block0, warp2
+hello world from block3, warp7
+hello world from block0, warp3
+hello world from block3, warp6
+hello world from block3, warp2
+hello world from block3, warp3
+hello world from block2, warp7
+hello world from block2, warp3
+hello world from block2, warp6
+hello world from block2, warp2
+hello world from block0, warp8
+hello world from block0, warp4
+hello world from block3, warp0
+hello world from block3, warp9
+hello world from block0, warp9
+hello world from block0, warp0
+hello world from block2, warp9
+hello world from block3, warp8
+hello world from block0, warp5
+hello world from block2, warp5
+hello world from block3, warp5
+hello world from block3, warp4
+hello world from block3, warp1
+hello world from block0, warp1
+hello world from block2, warp1
+hello world from block2, warp8
+hello world from block2, warp4
+hello world from block2, warp0
+hello world from block1, warp2
+hello world from block1, warp3
+hello world from block1, warp7
+hello world from block1, warp6
+hello world from block1, warp9
+hello world from block1, warp1
+hello world from block1, warp5
+hello world from block1, warp4
+hello world from block1, warp8
+hello world from block1, warp0

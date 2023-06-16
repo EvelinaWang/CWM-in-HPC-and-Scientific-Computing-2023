@@ -36,7 +36,11 @@
 // write your kernel here
 
 //----------------------------------------------------------------------
-
+__global__ void vector_add(float *d_A,float *d_B, float *d_C){
+    int index=blockIdx.x*blockDim.x + threadIdx.x;
+    d_C[index] = d_A[index] + d_B[index];
+    
+}
 
 
 
@@ -75,8 +79,22 @@ int main(void) {
   // put your code here
 
   //----------------------------------------------------------------------
+  float *h_A=NULL, *h_B=NULL, *h_C=NULL;
+
+  h_A = (float*) malloc(N*sizeof(float));
+  h_B = (float*) malloc(N*sizeof(float));
+  h_C = (float*) malloc(N*sizeof(float));
   
-  
+  if(h_A==NULL || h_B==NULL || h_C==NULL){
+    return 1;
+  }
+
+  for(size_t f=0; f<N; f++) {
+    h_A[f] = f + 1.0f;
+    h_B[f] = f + 1.0f;
+    h_C[f] = 0;
+  }
+
   //----------------------------------------------------------------------
   // TASK 2: In this task we initialize the GPU, declare variables which 
   //         resided on the GPU and then allocate memory for them.
@@ -93,8 +111,30 @@ int main(void) {
   // put your code here
   
   //----------------------------------------------------------------------
-  
-  
+  int deviceid=0;
+  int devCount=0;
+  cudaGetDeviceCount(&devCount);
+  if(deviceid<devCount){
+    cudaSetDevice(deviceid);
+  }else return 1;
+
+  float *d_A, *d_B,*d_C;
+  cudaError_t err_code;
+
+  err_code=cudaMalloc(&d_A, N*sizeof(float));
+  if(err_code!=cudaSuccess){
+    return 1;
+  }
+  err_code=cudaMalloc(&d_B, N*sizeof(float));
+  if(err_code!=cudaSuccess){
+    return 1;
+  }
+  err_code=cudaMalloc(&d_C, N*sizeof(float));
+  if(err_code!=cudaSuccess){
+    return 1;
+  }
+  cudaMemset(d_C, 0, N*sizeof(float));
+
   //----------------------------------------------------------------------
   // TASK 3: Here we would like to copy the data from the host to the device
   
@@ -108,8 +148,9 @@ int main(void) {
 
   //----------------------------------------------------------------------
 
+  cudaMemcpy(d_A,h_A,N*sizeof(float),cudaMemcpyHostToDevice);
+  cudaMemcpy(d_B,h_B,N*sizeof(float),cudaMemcpyHostToDevice);
   
-
   //----------------------------------------------------------------------
   // TASK 4.0: To write your vector addition kernel. Full task is above.
   //----------------------------------------------------------------------
@@ -128,19 +169,20 @@ int main(void) {
   // put your code here
   
   //----------------------------------------------------------------------
-
+  vector_add<<<8192,1024>>>(d_A,d_B,d_C);
+  
   //----------------------------------------------------------------------
   // TASK 5: Transfer data to the host.
   
   // put your code here
 
   //----------------------------------------------------------------------
-  
+  cudaMemcpy(h_C,d_C,N*sizeof(float),cudaMemcpyDeviceToHost);
   
   if(N>10){
 	  printf("Check:\n");
 	  for(int f=0; f<10; f++){
-		  printf("Is %f + %f = %f?\n", h_A[f], h_B[f], h_C[f]);
+		  printf("Is %f + %f = %f\n", h_A[f], h_B[f], h_C[f]);
 	  }
   }
   
@@ -153,7 +195,13 @@ int main(void) {
   // put your code here
 
   //----------------------------------------------------------------------
-  
+  cudaFree(d_A);
+  cudaFree(d_B);
+  cudaFree(d_C);
+  free(h_A);
+  free(h_B);
+  free(h_C);
+
   // TASK 7: Run your code
   return(0);
 }

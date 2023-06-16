@@ -12,11 +12,12 @@
 
 //----------------------------------------------------------------------
 // TASK 2: Write a "Hello world" kernel
-// 
-// Remember that kernel is defined by __global__ and inside it looks like
-// a serial code for CPU. For printing out to console you can use printf().
 
-// write your kernel here
+__global__ void helloworld_GPU(void){
+    printf("hello world!\n");
+} 
+// Remember that kernel is defined by __global__ and inside it looks like
+// a serial code for CPU. For printing out to console you can use printf()
 
 //----------------------------------------------------------------------
 
@@ -27,10 +28,16 @@ int main(void) {
   // You can also try to write a check if there is a device with that id,
   // so the code behaves nicely when it fails
   
-  // write you GPU initialization here
+    int deviceid=0;
+    int devCount;
 
-  //----------------------------------------------------------------------
+    cudaGetDeviceCount(&devCount);
 
+    if(deviceid<devCount){
+        cudaSetDevice(deviceid);
+    }else return 1;
+
+  //--------------------------------------------------------------------
   
   
   //----------------------------------------------------------------------
@@ -41,7 +48,7 @@ int main(void) {
   // dimensional or full three dimensional call using dim3 data type.
   
   // execute your "Hello world" kernel here
-  
+    helloworld_GPU<<<1,5>>>();  
   //----------------------------------------------------------------------
  
   cudaDeviceReset(); 
