@@ -39,6 +39,7 @@
 
 __global__ void vector_add_uncoalesced(float *d_C, float *d_A, float *d_B){
   // write your kernel here
+  
 }
 //----------------------------------------------------------------------
 

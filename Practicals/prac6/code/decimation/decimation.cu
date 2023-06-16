@@ -65,7 +65,9 @@ void Check_errors(int *GPU_sum2, int *GPU_sum4, int *h_input, size_t size){
 // put your kernel here
 
 //----------------------------------------------------------------------
+__global__ void decimation(void){
 
+}
 
 
 int main(void) {
